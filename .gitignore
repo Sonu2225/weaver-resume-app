@@ -1,0 +1,15 @@
+# Virtual Environment
+venv/
+
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Unnecessary tool directories
+.gradio/
+
+# macOS files
+.DS_Store
