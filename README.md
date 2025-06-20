@@ -1,6 +1,8 @@
 # Weaver: Your Career Narrative
 
-An AI-powered resume coach built with Streamlit and Ollama to provide instant, high-quality feedback on resumes. This app helps users craft authentic and impactful career narratives.
+An AI-powered resume coach built with Streamlit and Ollama to provide instant, high-quality feedback on resumes. 
+
+This tool is specifically designed for **computer science students and tech professionals** looking to craft authentic and impactful career narratives that stand out in the industry.
 
 ## Key Features
 
