@@ -5,33 +5,40 @@ import json
 import pytesseract
 from PIL import Image
 import os
+from groq import Groq 
 
-# --- 1. CORE AI STREAMING FUNCTION ---
-def ollama_stream_generator(prompt_text, model="gemma3:4b"):
+# --- 1. CORE AI STREAMING FUNCTION 
+def ai_stream_generator(prompt_text, model="llama3-8b-8192"):
     """
-    A reusable function to stream responses from the Ollama API.
+    A reusable function to stream responses from the Groq Cloud API.
     """
     try:
-        url = "http://localhost:11434/api/generate"
-        payload = {"model": model, "prompt": prompt_text, "stream": True}
-        # Increased timeout for potentially long resume analyses
-        response = requests.post(url, json=payload, stream=True, timeout=300)
-        response.raise_for_status()
+        # Check if the API key is available in Streamlit secrets
+        if "groq" not in st.secrets or "api_key" not in st.secrets["groq"]:
+            yield "**Error:** Groq API key is not set. Please add it to your Streamlit secrets."
+            return
 
-        for line in response.iter_lines():
-            if line:
-                try:
-                    obj = json.loads(line.decode('utf-8'))
-                    yield obj.get("response", "")
-                except json.JSONDecodeError:
-                    # Silently ignore lines that are not valid JSON
-                    continue
-    except requests.exceptions.RequestException as e:
-        yield f"**Error:** Could not connect to the Ollama API. Please ensure Ollama is running and the model '{model}' is available. Details: {e}"
+        client = Groq(api_key=st.secrets["groq"]["api_key"])
+        
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt_text,
+                }
+            ],
+            model=model,
+            stream=True,
+        )
+
+        for chunk in chat_completion:
+            yield chunk.choices[0].delta.content or ""
+
     except Exception as e:
-        yield f"**An unexpected error occurred:** {e}"
+        yield f"**An unexpected error occurred with the Groq API:** {e}"
 
-# --- 2. ENHANCED PROMPTS ---
+
+# --- 2. ENHANCED PROMPTS 
 def get_prompts():
     """
     Centralized function to store and generate all AI prompts.
@@ -99,7 +106,7 @@ def get_prompts():
         "follow_up": follow_up_prompt,
     }
 
-# --- 3. STREAMLIT APP UI & LOGIC ---
+# --- 3. STREAMLIT APP UI & LOGIC 
 
 # Page Configuration
 st.set_page_config(page_title="Weaver: You Career Narrative", page_icon="📝", layout="wide")
@@ -161,7 +168,7 @@ with st.sidebar:
                     st.session_state.messages.append({"role": "assistant", "type": "jd_analysis"})
                     st.success("Job Description processed!")
                 except pytesseract.TesseractNotFoundError as e:
-                    st.error(f"Tesseract Error: {e}. Please ensure Tesseract OCR is installed and in your system's PATH.")
+                    st.error(f"Tesseract Error: {e}. The cloud environment should handle this, but if you see this, there's a deployment issue.")
                 except Exception as e:
                     st.error(f"Error processing job description: {e}")
 
@@ -272,7 +279,7 @@ with st.sidebar:
 \section{Skills}
 \begin{itemize}[leftmargin=*]
     \item \textbf{Languages:} Python, Java, SQL, JavaScript, HTML/CSS
-    \item \textbf{Frameworks \& Libraries:} React, Node.js, Django, Pandas, NumPy, scikit-learn, TensorFlow
+    \item \textbf{Frameworks & Libraries:} React, Node.js, Django, Pandas, NumPy, scikit-learn, TensorFlow
     \item \textbf{Developer Tools:} Git, Docker, Jenkins, AWS (S3, EC2, Lambda), CI/CD
     \item \textbf{Databases:} PostgreSQL, MongoDB, MySQL
 \end{itemize}
@@ -295,7 +302,6 @@ with st.sidebar:
 
 # --- Main Chat Interface ---
 st.title("Weaver: Your Career Narrative 📝")
-# Intro text
 st.markdown("""
 Welcome to Weaver. I'm Suzy, your personal AI Career Coach.
 
@@ -331,7 +337,7 @@ if resume_trigger:
     with st.chat_message("assistant"):
         with st.spinner("Analyzing your resume..."):
             prompt = prompts["resume_analysis"].format(resume_text=st.session_state.resume_text)
-            full_response = st.write_stream(ollama_stream_generator(prompt))
+            full_response = st.write_stream(ai_stream_generator(prompt)) # <-- Use the new AI function
             resume_trigger["content"] = full_response
             st.rerun()
 
@@ -342,7 +348,7 @@ if jd_trigger and not triggered_analysis:
     with st.chat_message("assistant"):
         with st.spinner("Tailoring resume advice to the job description..."):
             prompt = prompts["jd_tailoring"].format(resume_text=st.session_state.resume_text, jd_text=st.session_state.jd_text)
-            full_response = st.write_stream(ollama_stream_generator(prompt))
+            full_response = st.write_stream(ai_stream_generator(prompt)) # <-- Use the new AI function
             jd_trigger["content"] = full_response
             st.rerun()
 
@@ -359,7 +365,7 @@ if not triggered_analysis and st.session_state.messages and st.session_state.mes
                 user_prompt=last_user_prompt
             )
 
-            full_response = st.write_stream(ollama_stream_generator(prompt))
+            full_response = st.write_stream(ai_stream_generator(prompt)) # <-- Use the new AI function
             st.session_state.messages.append({"role": "assistant", "content": full_response})
             st.rerun()
 
