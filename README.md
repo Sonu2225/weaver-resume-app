@@ -53,7 +53,7 @@ Click **"Deploy!"**
 
 2. **Install Python dependencies:**
 
-pip install -r requirements.txt
+- pip install -r requirements.txt
 
 3. **Install system dependencies:**
 
