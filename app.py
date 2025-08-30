@@ -366,6 +366,8 @@ Get started by uploading your resume in the sidebar.
 """)
 
 # --- Chat Logic ---
+
+# Display all existing messages from the history
 for msg in st.session_state.messages:
     if "content" in msg:
         with st.chat_message(msg["role"]):
@@ -396,30 +398,28 @@ if jd_trigger and not triggered_analysis:
             jd_trigger["content"] = full_response
             st.rerun()
 
-# Handle user follow-up questions
-def generate_follow_up_response():
-    if not st.session_state.messages or st.session_state.messages[-1]["role"] != "user":
-        return
-        
-    last_user_prompt = st.session_state.messages[-1]["content"]
-    with st.chat_message("assistant"):
-        with st.spinner("Suzy is typing..."):
-            chat_history = "\n".join([f"{m['role']}: {m.get('content', '')}" for m in st.session_state.messages[:-1]])
-            prompt = prompts["follow_up"].format(
-                resume_text=st.session_state.resume_text,
-                chat_history=chat_history,
-                user_prompt=last_user_prompt
-            )
-            full_response = st.write_stream(ai_stream_generator(prompt))
-            st.session_state.messages.append({"role": "assistant", "content": full_response})
-            st.rerun()
-
+# Handle all new user follow-up questions
 if user_prompt := st.chat_input("Ask a follow-up question..."):
     if is_input_suspicious(user_prompt):
         st.warning("Your question seems to contain suspicious instructions and was blocked.")
     else:
+        # Add user message to state and display it
         st.session_state.messages.append({"role": "user", "content": user_prompt})
-        st.rerun()
+        with st.chat_message("user"):
+            st.markdown(user_prompt)
 
-if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
-    generate_follow_up_response()
+        # Generate and display the assistant's response
+        with st.chat_message("assistant"):
+            with st.spinner("Suzy is typing..."):
+                chat_history = "\n".join(
+                    [f"{m['role']}: {m.get('content', '')}" for m in st.session_state.messages[:-1]]
+                )
+                prompt = prompts["follow_up"].format(
+                    resume_text=st.session_state.resume_text,
+                    chat_history=chat_history,
+                    user_prompt=user_prompt
+                )
+                
+                # Stream the response to the UI and save it
+                full_response = st.write_stream(ai_stream_generator(prompt))
+                st.session_state.messages.append({"role": "assistant", "content": full_response})
