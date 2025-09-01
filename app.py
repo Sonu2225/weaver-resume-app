@@ -167,14 +167,154 @@ with st.sidebar:
                     st.error(f"Error processing job description: {e}")
     
     st.divider()
-    # Expander with LaTeX template is omitted for brevity but should be kept in your file
+
+    # <-- RESTORED: LaTeX Template Expander in Sidebar ---
+    with st.expander("View ATS-Friendly LaTeX Template"):
+        latex_resume_code = r"""
+
+\documentclass[letterpaper,11pt]{article}
+
+% PACKAGES
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{charter} % A clean, professional font
+
+% PAGE STYLE
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% MARGINS
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+% URL STYLE
+\urlstyle{same}
+
+% SECTION FORMATTING
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% TIGHTER LISTS for bullet points
+\setlist[itemize]{leftmargin=*, label={--}}
+\setlist[itemize,1]{leftmargin=1.5em}
+\setlist[itemize,2]{leftmargin=1.5em}
+
+%-----------------------------------------------------------
+% DOCUMENT START
+\begin{document}
+
+%---------- HEADING ----------
+% Your name and contact information
+\begin{center}
+    {\Huge \scshape Your Name} \\ \vspace{1pt}
+    \small \href{mailto:your.email@provider.com}{\underline{your.email@provider.com}} $|$ 
+    (123) 456-7890 $|$ 
+    \href{https://www.linkedin.com/in/yourprofile}{\underline{linkedin.com/in/yourprofile}} $|$ 
+    \href{https://github.com/yourusername}{\underline{github.com/yourusername}} \\
+    City, State
+\end{center}
+
+%---------- EDUCATION ----------
+\section{Education}
+\begin{itemize}[leftmargin=*]
+    \item
+    \textbf{University Name} \hfill City, State \\
+    \textit{Degree, Major} \hfill Graduation Date: May 20XX \\
+    GPA: X.0/4.0; Term Honor: X semesters; Minor in Y \\
+    Relevant Coursework: Course 1, Course 2, Course 3 (Only add courses that are directly relevant to the job you are applying for.)
+\end{itemize}
+
+%---------- PROFESSIONAL EXPERIENCE ----------
+\section{Experience}
+\begin{itemize}[leftmargin=*]
+    \item 
+    \textbf{Company Name} \hfill City, State \\
+    \textit{Your Job Title} \hfill Month 20XX -- Month 20XX
+        \begin{itemize}
+            \item Improved user engagement by (X\%) through A/B testing.
+            \item Developed a Python script to automate the generation of weekly performance reports, saving approximately 10 hours of manual work per month.
+            \item Analyzed market data using SQL and Tableau to identify three key growth areas, which influenced the Q4 product development strategy.
+        \end{itemize}
+    \item 
+    \textbf{Another Company Name} \hfill City, State \\
+    \textit{Your Previous Job Title} \hfill Month 20XX -- Month 20XX
+        \begin{itemize}
+            \item Created new functionality for XYZ.
+            \item Managed project timelines and deliverables for a product launch, ensuring a successful release on schedule and 5\% under budget.
+        \end{itemize}
+\end{itemize}
+
+%---------- PROJECTS ----------
+\section{Projects}
+\begin{itemize}[leftmargin=*]
+    \item
+    \textbf{Project Name} | \textit{Python, scikit-learn, AWS} \hfill Month 20XX -- Month 20XX \\
+    \textit{Brief one-line description of the project and its purpose.}
+        \begin{itemize}
+            \item Engineered a machine learning model to predict customer churn with 92\% accuracy by analyzing user behavior data, potentially saving \$50K in annual revenue.
+            \item Deployed the model as a REST API using Flask on an AWS EC2 instance, providing real-time predictions for the sales team.
+        \end{itemize}
+\end{itemize}
+
+%---------- SKILLS ----------
+\section{Skills}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Languages:} Python, Java, SQL, JavaScript, HTML/CSS
+    \item \textbf{Frameworks \& Libraries:} React, Node.js, Django, Pandas, NumPy, scikit-learn, TensorFlow
+    \item \textbf{Developer Tools:} Git, Docker, Jenkins, AWS (S3, EC2, Lambda), CI/CD
+    \item \textbf{Databases:} PostgreSQL, MongoDB, MySQL
+\end{itemize}
+
+%---------- LEADERSHIP & ACTIVITIES ----------
+\section{Leadership & Activities}
+\begin{itemize}[leftmargin=*]
+    \item
+    \textbf{University Programming Club}, \textit{President} \hfill Month 20XX -- Present
+    \begin{itemize}
+        \item Grew club membership by 50\% through targeted outreach campaigns and by organizing weekly workshops on topics like competitive programming and web development.
+        \item Secured \$2,000 in university funding to host the annual hackathon for over 100 students.
+    \end{itemize}
+\end{itemize}
+
+\end{document}
+
+
+"""
+        st.text_area("Copy this code for Overleaf:", value=latex_resume_code, height=250, label_visibility="collapsed")
+
 
 st.title("Weaver: Your Career Narrative 📝")
+# <-- RESTORED: Full welcome message with the bulleted list ---
 st.markdown("""
-Welcome to Weaver. I'm Suzy, your personal AI Career Coach. Let's transform your resume into your most powerful career asset.
+Welcome to Weaver. I'm Suzy, your personal AI Career Coach.
+
+Let's transform your resume into your most powerful career asset. This tool is built to provide the strategic insights you need to land your next opportunity.
+
+**Here’s how I can help:**
+* **Comprehensive Resume Review:** Get instant feedback on structure, content, and ATS compatibility.
+* **Tailored Job Description Analysis:** Match your resume to a specific role with custom advice.
+* **Ready-to-Use LaTeX Template:** Copy the ATS-friendly template from the sidebar and simply replace the placeholder text with your information and my suggestions.
+* **Personalized Q&A:** Ask follow-up questions to refine your application strategy.
+
+Get started by uploading your resume in the sidebar.
 """)
 
-# --- Chat Logic (RESTORED TO ORIGINAL STREAMING BEHAVIOR) ---
+# --- Chat Logic ---
 
 # Display all completed messages from the history
 for msg in st.session_state.messages:
@@ -192,7 +332,6 @@ if resume_trigger:
     with st.chat_message("assistant"):
         with st.spinner("Analyzing your resume..."):
             prompt = prompts["resume_analysis"].format(resume_text=st.session_state.resume_text)
-            # <-- RESTORED: Using st.write_stream for the original UI effect
             full_response = st.write_stream(ai_stream_generator(prompt))
             resume_trigger["content"] = full_response
             st.rerun()
@@ -204,21 +343,12 @@ if jd_trigger and not triggered_analysis:
     with st.chat_message("assistant"):
         with st.spinner("Tailoring resume advice..."):
             prompt = prompts["jd_tailoring"].format(resume_text=st.session_state.resume_text, jd_text=st.session_state.jd_text)
-            # <-- RESTORED: Using st.write_stream for the original UI effect
             full_response = st.write_stream(ai_stream_generator(prompt))
             jd_trigger["content"] = full_response
             st.rerun()
 
-# Handle user follow-up questions
-if user_prompt := st.chat_input("Ask a follow-up question..."):
-    if is_input_suspicious(user_prompt):
-        st.warning("Your question seems to contain suspicious instructions and was blocked.")
-    else:
-        st.session_state.messages.append({"role": "user", "content": user_prompt})
-        st.rerun() # Rerun to display the user message immediately
-
-# Logic to generate response for the last user message
-if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
+# Handle user follow-up questions logic
+def generate_follow_up_response():
     last_user_prompt = st.session_state.messages[-1]["content"]
     with st.chat_message("assistant"):
         with st.spinner("Suzy is typing..."):
@@ -228,7 +358,19 @@ if st.session_state.messages and st.session_state.messages[-1]["role"] == "user"
                 chat_history=chat_history,
                 user_prompt=last_user_prompt
             )
-            # <-- RESTORED: Using st.write_stream for the original UI effect
             full_response = st.write_stream(ai_stream_generator(prompt))
             st.session_state.messages.append({"role": "assistant", "content": full_response})
-            st.rerun()
+
+if user_prompt := st.chat_input("Ask a follow-up question..."):
+    if is_input_suspicious(user_prompt):
+        st.warning("Your question seems to contain suspicious instructions and was blocked.")
+    else:
+        st.session_state.messages.append({"role": "user", "content": user_prompt})
+        st.rerun()
+
+# Check if the last message is from the user and generate a response
+if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
+    is_new_message = len(st.session_state.messages) > 1 and "content" not in st.session_state.messages[-1]
+    if not any(m.get('type') for m in st.session_state.messages) or not is_new_message :
+         generate_follow_up_response()
+         st.rerun()
