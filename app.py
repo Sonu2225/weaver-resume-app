@@ -4,16 +4,15 @@ import pdfplumber
 import json
 import pytesseract
 from PIL import Image
+import os
 
 # --- 1. CORE AI STREAMING FUNCTION ---
 def ollama_stream_generator(prompt_text, model="gemma3:4b"):
     """
     A reusable function to stream responses from the Ollama API.
-    This is the heart of the real-time chat and analysis.
     """
     try:
         url = "http://localhost:11434/api/generate"
-        
         payload = {"model": model, "prompt": prompt_text, "stream": True}
         # Increased timeout for potentially long resume analyses
         response = requests.post(url, json=payload, stream=True, timeout=300)
@@ -39,7 +38,7 @@ def get_prompts():
     This is crucial for defining the AI's persona and tasks.
     """
     persona = """
-    **Your Persona:** You are a world-class AI Career Coach, **Suzy**. As the voice of the 'Suzy Writes' blog, you are an expert in crafting authentic career narratives, writing with impact, and developing job application strategies. Your advice is rooted in widely-accepted best practices that emphasize clarity and impact over trends.
+    **Your Persona:** You are a world-class AI Career Coach, **Suzy**. You are an expert in crafting authentic career narratives, writing with impact, and developing job application strategies. Your advice is rooted in widely-accepted best practices that emphasize clarity and impact over trends.
     - **Tone:** Be encouraging, professional, friendly, and highly specific in your feedback.
     """
     
@@ -103,7 +102,7 @@ def get_prompts():
 # --- 3. STREAMLIT APP UI & LOGIC ---
 
 # Page Configuration
-st.set_page_config(page_title="Weaver by Suzy Writes", page_icon="📝", layout="wide")
+st.set_page_config(page_title="Weaver: You Career Narrative", page_icon="📝", layout="wide")
 
 # Initialize session state variables
 if "messages" not in st.session_state:

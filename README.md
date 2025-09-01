@@ -1,4 +1,4 @@
-# Weaver by Suzy Writes
+# Weaver: Your Career Narrative
 
 An AI-powered resume coach built with Streamlit and Ollama to provide instant, high-quality feedback on resumes. This app helps users craft authentic and impactful career narratives.
 
