@@ -68,7 +68,7 @@ pip install -r requirements.txt
 
 5. **Run the Streamlit app:**
 
-streamlit run app.py
+- streamlit run app.py
 
 ## Technologies Used
 - **Frontend:** Streamlit
