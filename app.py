@@ -334,8 +334,6 @@ with st.sidebar:
         \item Action verb with product managers, designers, or other engineers to define requirements, review code, etc.
         % Suggestion: Mention a specific problem you helped solve or a skill you applied.
         \item Action verb a bug/issue or implemented a specific feature using language/tool, which resulted in a positive outcome.
-        % Suggestion: Talk about the development environment or methodologies used.
-        \item Gained experience with Agile methodologies, CI/CD pipelines, large-scale systems, etc. in a professional setting.
     \end{itemize}
     \item 
     \textbf{Previous Role} \hfill City, ST \\
