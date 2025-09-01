@@ -31,7 +31,7 @@ def ai_stream_generator(prompt_text, model="llama-3.1-8b-instant"):
     except Exception as e:
         yield f"**An unexpected error occurred with the Groq API:** {e}"
 
-# --- 2. SECURITY & PROMPTS (HARDENED) ---
+# --- 2. SECURITY & PROMPTS ---
 def is_input_suspicious(input_text):
     """
     Checks user input for common prompt injection keywords.
@@ -168,7 +168,7 @@ with st.sidebar:
     
     st.divider()
 
-    # <-- RESTORED: LaTeX Template Expander in Sidebar ---
+    # LaTeX Template Expander in Sidebar
     with st.expander("View ATS-Friendly LaTeX Template"):
         latex_resume_code = r"""
 
