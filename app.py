@@ -8,7 +8,7 @@ import os
 from groq import Groq 
 
 # --- 1. CORE AI STREAMING FUNCTION 
-def ai_stream_generator(prompt_text, model="llama3-8b-8192"):
+def ai_stream_generator(prompt_text, model="llama-3.1-8b-instant"):
     """
     A reusable function to stream responses from the Groq Cloud API.
     """
