@@ -228,123 +228,128 @@ with st.sidebar:
 
 % PACKAGES
 \usepackage{latexsym}
-\usepackage[empty]{fullpage}
+\usepackage[left=0.5in, right=0.5in, top=0.75in, bottom=0.5in]{geometry} % Modern margin control
 \usepackage{titlesec}
 \usepackage{marvosym}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{verbatim}
-\usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
-\usepackage{charter} % A clean, professional font
+\usepackage{charter} 
+\usepackage{enumitem}
 
 % PAGE STYLE
-\pagestyle{fancy}
-\fancyhf{} % Clear all header and footer fields
-\fancyfoot{}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
-
-% MARGINS
-\addtolength{\oddsidemargin}{-0.5in}
-\addtolength{\evensidemargin}{-0.5in}
-\addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-.5in}
-\addtolength{\textheight}{1.0in}
+\pagestyle{empty}
 
 % URL STYLE
 \urlstyle{same}
 
-% SECTION FORMATTING
+% SECTION FORMATTING (Slightly tighter spacing)
+\titlespacing*{\section}{0pt}{1.5ex}{1.0ex} 
 \titleformat{\section}{
   \vspace{-4pt}\scshape\raggedright\large
 }{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
 
-% TIGHTER LISTS for bullet points
-\setlist[itemize]{leftmargin=*, label={--}}
-\setlist[itemize,1]{leftmargin=1.5em}
-\setlist[itemize,2]{leftmargin=1.5em}
+% TIGHTER LISTS (Slightly tighter spacing)
+\setlist[itemize]{topsep=0.1ex, itemsep=0.1ex, parsep=0ex, leftmargin=*} 
+\setlist[itemize,1]{leftmargin=0pt, label={}}
 
 %-----------------------------------------------------------
 % DOCUMENT START
 \begin{document}
 
 %---------- HEADING ----------
-% Your name and contact information
+% Pro-Tip: Ensure your contact information is professional and consistent across platforms.
 \begin{center}
     {\Huge \scshape Your Name} \\ \vspace{1pt}
-    \small City, State $|$ (123) 456-7890 $|$ 
-    \small \href{mailto:your.email@provider.com}{\underline{your.email@provider.com}} $|$ 
-    (123) 456-7890 $|$ 
-    \href{https://www.linkedin.com/in/yourprofile}{\underline{linkedin.com/in/yourprofile}} $|$ 
-    \href{https://github.com/yourusername}{\underline{github.com/yourusername}} \\
-    
+    \small City, ST ZIP Code $|$ (123) 456-7890 $|$ 
+    \href{mailto:youremail@provider.com}{\underline{youremail@provider.com}} $|$ 
+    \href{https://linkedin.com/in/yourprofile}{\underline{linkedin.com/in/yourprofile}} $|$ 
+    \href{https://github.com/yourusername}{\underline{github.com/yourusername}}
 \end{center}
 
 %---------- EDUCATION ----------
 \section{Education}
-\begin{itemize}[leftmargin=*]
+\begin{itemize}
+ \item
+    \textbf{University Name} \hfill City, ST \\
+    \textit{Bachelor of Science in Major}, GPA: X.XX/4.0 \hfill Expected Month Year \\
+    Honors: Dean's List, President's List, Cum Laude, etc. \\
+    Relevant Coursework: Data Structures, Algorithms, Web Development, Database Systems, etc.
     \item
-    \textbf{University Name} \hfill City, State \\
-    \textit{Degree, Major} \hfill Graduation Date: May 20XX \\
-    GPA: X.0/4.0; Term Honor: X semesters; Minor in Y \\
-    Relevant Coursework: Course 1, Course 2, Course 3 (Only add courses that are directly relevant to the job you are applying for.)
+    \textbf{Previous College/University, if applicable} \hfill City, ST \\
+    \textit{Associate of Arts/Science in Major} \hfill Month Year \\
+    Awards: List any relevant awards or honors
 \end{itemize}
 
-%---------- PROFESSIONAL EXPERIENCE ----------
-\section{Experience}
-\begin{itemize}[leftmargin=*]
-    \item 
-    \textbf{Company Name} \hfill City, State \\
-    \textit{Your Job Title} \hfill Month 20XX -- Month 20XX
-        \begin{itemize}
-            \item Improved user engagement by (X\%) through A/B testing.
-            \item Developed a Python script to automate the generation of weekly performance reports, saving approximately 10 hours of manual work per month.
-            \item Analyzed market data using SQL and Tableau to identify three key growth areas, which influenced the Q4 product development strategy.
-        \end{itemize}
-    \item 
-    \textbf{Another Company Name} \hfill City, State \\
-    \textit{Your Previous Job Title} \hfill Month 20XX -- Month 20XX
-        \begin{itemize}
-            \item Created new functionality for XYZ.
-            \item Managed project timelines and deliverables for a product launch, ensuring a successful release on schedule and 5\% under budget.
-        \end{itemize}
+%---------- TECHNICAL SKILLS ----------
+% Guidance: Tailor this section for each job application. List skills from most to least proficient.
+% Group skills logically so a recruiter can quickly find keywords that match their job description.
+\section{Technical Skills}
+\begin{itemize}
+    \item \textbf{Languages:} e.g., Python, Java, C++, SQL, JavaScript
+    \item \textbf{Frameworks/Libraries:} e.g., React, Node.js, TensorFlow, Spring Boot, Pandas
+    \item \textbf{Developer Tools:} e.g., Git, Docker, Jenkins, Postman, VS Code, Jira
+    \item \textbf{Databases \& Cloud:} e.g., MySQL, MongoDB, AWS (S3, EC2), GCP, Azure
 \end{itemize}
 
 %---------- PROJECTS ----------
+% Guidance: Your project section is your proof of skill. Frame your bullet points using the "What, How, Why" model.
+% What did you do? How did you do it (tech)? Why was it important (the feature/goal)?
+% Start every bullet point with a strong action verb (e.g., Engineered, Designed, Implemented, Deployed).
 \section{Projects}
-\begin{itemize}[leftmargin=*]
+\begin{itemize}
     \item
-    \textbf{Project Name} | \textit{Python, scikit-learn, AWS} \hfill Month 20XX -- Month 20XX \\
-    \textit{Brief one-line description of the project and its purpose.}
-        \begin{itemize}
-            \item Engineered a machine learning model to predict customer churn with 92\% accuracy by analyzing user behavior data, potentially saving \$50K in annual revenue.
-            \item Deployed the model as a REST API using Flask on an AWS EC2 instance, providing real-time predictions for the sales team.
-        \end{itemize}
-\end{itemize}
-
-%---------- SKILLS ----------
-\section{Skills}
-\begin{itemize}[leftmargin=*]
-    \item \textbf{Languages:} Python, Java, SQL, JavaScript, HTML/CSS
-    \item \textbf{Frameworks \& Libraries:} React, Node.js, Django, Pandas, NumPy, scikit-learn, TensorFlow
-    \item \textbf{Developer Tools:} Git, Docker, Jenkins, AWS (S3, EC2, Lambda), CI/CD
-    \item \textbf{Databases:} PostgreSQL, MongoDB, MySQL
-\end{itemize}
-
-%---------- LEADERSHIP & ACTIVITIES ----------
-\section{Leadership \& Activities}
-\begin{itemize}[leftmargin=*]
-    \item
-    \textbf{University Programming Club}, \textit{President} \hfill Month 20XX -- Present
+    \textbf{Project Name} -- \textit{Key Technologies Used, e.g., Python, React, AWS} \hfill Date Range
     \begin{itemize}
-        \item Grew club membership by 50\% through targeted outreach campaigns and by organizing weekly workshops on topics like competitive programming and web development.
-        \item Secured \$2,000 in university funding to host the annual hackathon for over 100 students.
+    % Suggestion: Describe the high-level architecture or the main purpose of the project.
+        \item Action Verb, description of feature or system using specific technology to state the purpose or outcome.
+    % Suggestion: Detail a specific technical challenge you overcame.
+        \item Action Verb, a component or process to solve a specific problem which improved efficiency, user experience, etc.
+        % Suggestion: Mention any design, testing, or deployment work.
+        \item Action Verb and Action Verb the application/model on platform, e.g., AWS, Heroku to ensure a key result, e.g., scalability, availability.
+    \end{itemize}
+    \item
+    \textbf{Second Project Name} -- \textit{Key Technologies Used} \hfill Date Range
+    \begin{itemize}
+        \item Action verb a project component that accomplishes a specific task or function.
+        \item Action verb data from the source and the applied method/algorithm to generate insight or result.
+        \item Action verb is the project's user interface / back-end logic to provide a key user benefit.
+    \end{itemize}
+\end{itemize}
+
+%---------- EXPERIENCE ----------
+% Guidance: Even non-technical roles have valuable, transferable skills. Focus on responsibility,
+% collaboration, communication, and problem-solving. Start every bullet with a strong action verb.
+\section{Experience}
+\begin{itemize}
+    \item 
+    \textbf{Your Role, e.g., Software Engineering Intern} \hfill City, ST \\
+    \textit{Company Name} \hfill Date Range
+    \begin{itemize}
+        % Suggestion: Describe your main responsibility and how you contributed to the team's goals.
+        \item Action verb to the development/maintenance of product/feature, contributing to the overall team objective.
+        % Suggestion: Highlight collaboration with others.
+        \item Action verb with product managers, designers, or other engineers to define requirements, review code, etc.
+        % Suggestion: Mention a specific problem you helped solve or a skill you applied.
+        \item Action verb a bug/issue or implemented a specific feature using language/tool, which resulted in a positive outcome.
+        % Suggestion: Talk about the development environment or methodologies used.
+        \item Gained experience with Agile methodologies, CI/CD pipelines, large-scale systems, etc. in a professional setting.
+    \end{itemize}
+    \item 
+    \textbf{Previous Role} \hfill City, ST \\
+    \textit{Company or Organization Name} \hfill Date Range
+    \begin{itemize}
+        % Suggestion: Frame your responsibilities to highlight transferable skills.
+        \item Action verb showing leadership/responsibility, e.g., Managed, Trained, Coordinated a task, project, or team to achieve a goal.
+        % Suggestion: Focus on communication and problem-solving skills.
+        \item Action verb showing communication, for example, communicated, presented, resolved information or issues with stakeholders, customers, or team members.
     \end{itemize}
 \end{itemize}
 
 \end{document}
+ 
 """
         st.code(latex_resume_code, language='latex')
 
